@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView hintingView;
     ListView resultsView;
+    Bundle onSaveInstanceState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
