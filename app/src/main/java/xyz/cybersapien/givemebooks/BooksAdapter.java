@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
 import java.net.URL;
 import java.util.List;
 
@@ -66,39 +69,13 @@ public class BooksAdapter extends ArrayAdapter<Book>{
         bookImageView = (ImageView) listView.findViewById(R.id.book_imageView);
 
         if (!currentBook.getImageURL().equals(Book.NO_IMAGE)){
-            DownloadImageASyncTask imageTask = new DownloadImageASyncTask();
-            imageTask.execute(currentBook.getImageURL());
-
+            Picasso.with(getContext()).load(currentBook.getImageURL()).into(bookImageView);
+            bookImageView.setVisibility(View.VISIBLE);
         } else {
             bookImageView.setVisibility(View.GONE);
         }
 
 
         return listView;
-    }
-
-    /**
-     * An AsyncTask for downloading the image for the current book
-     * While this works, it is slow and unreliable since the Views are reused, thus creating a problem with the rendering of the images.
-     */
-    private class DownloadImageASyncTask extends AsyncTask<String, Void, Bitmap>{
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap bookImage = null;
-            try {
-                URL imageURL = new URL(params[0]);
-                bookImage = BitmapFactory.decodeStream(imageURL.openStream());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bookImage;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            bookImageView.setImageBitmap(bitmap);
-
-        }
     }
 }
