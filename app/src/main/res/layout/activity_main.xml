@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -42,6 +43,14 @@
         android:gravity="center"
         android:text="@string/hint_TextView"
         android:id="@+id/hint_textView"/>
+
+    <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/progressBar"
+        android:visibility="visible"
+        android:indeterminate="true" />
 
     <ListView
         android:layout_width="match_parent"

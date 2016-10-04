@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView hintingView;
     ListView resultsView;
-    Bundle onSaveInstanceState;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         resultsView = (ListView) findViewById(R.id.books_list);
         hintingView.setVisibility(View.VISIBLE);
         resultsView.setVisibility(View.GONE);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
         final ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
+        @Override
+        protected void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
         /**
          * The onPostExecute method in invoked after the execution of the doInBackGround Process.
          * This method's task is to process the data Gathered by the AsyncTask and then it sets the visibility of the required Views
@@ -112,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 hintingView.setText(R.string.error_hinting);
                 hintingView.setVisibility(View.VISIBLE);
             }
+            progressBar.setVisibility(View.GONE);
         }
 
         /**
